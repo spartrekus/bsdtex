@@ -1,0 +1,18 @@
+
+\documentclass[11pt]{article}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{grffile}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{cite}
+\begin{document}
+
+Text text text.
+
+\bibliography{mybib}{}
+\bibliographystyle{ieeetr}
+\end{document}
+!EOF
+
+
