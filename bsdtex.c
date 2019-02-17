@@ -26,6 +26,24 @@
 #include <time.h>
 
 
+char *strrdc(char *str)
+{  // seems to work, but seg fault sure
+      char ptr[strlen(str)+1];
+      int i,j=0;
+      for( i=0; str[i]!='\0'; i++)
+      {
+         if ( str[i] != '\n' ) 
+          if ( i >= 1 )
+           ptr[j++]=str[i];
+      } 
+      ptr[j]='\0';
+      size_t siz = sizeof ptr ; 
+      char *r = malloc( sizeof ptr );
+      return r ? memcpy(r, ptr, siz ) : NULL;
+}
+
+
+
 char *fbasenoext(char* mystr)
 {
     char *retstr;
@@ -77,7 +95,6 @@ void readfileline( char *fileoutput , char *filesource )
 
    source = fopen( filesource , "r");
    target = fopen( fileoutput , "wb+");
-   //fputs( "%!PS\n" , target );
 
    int export_skip = 0;
    int area_archive = 0;
@@ -90,7 +107,6 @@ void readfileline( char *fileoutput , char *filesource )
 
        else
        {
-
            if ( c != '\n' )
                lline[pcc++]=c;
 
@@ -103,39 +119,20 @@ void readfileline( char *fileoutput , char *filesource )
            if ( ( lline[ 0 ] == '*' )  && ( lline[ 1 ] == '/' ) ) 
            {    area_archive = 0;  export_skip = 1;       }
 
+
            if ( fileeof == 0 )
            if ( c == '\n' ) 
            {
              lline[pcc++]='\0';
+
              printf( "%s", lline );
              printf( "\n" );
-
-             //snprintf( charo, PATH_MAX , "%d %d", posx , posy ); 
-             //posy = posy - 10;
 
              if ( area_archive == 0 )
              if ( export_skip == 0 )
              if (  ( lline[ 0 ] == '/' ) && ( lline[ 1 ] == '/' )  )
              {
                    printf( "Rem : do nothing.\n" );
-             }
-             else if ( lline[ 0 ] == '-' ) 
-             {
-               fputs( lline ,    target);
-               //fputs( "<br>\n" , target);
-               fputs( "\n" , target);
-             }
-             else if ( ( lline[ 0 ] == '!' )  && ( lline[ 1 ] == 'l' ) && ( lline[ 2 ] == 'f' )  && ( lline[ 3 ] == ' ' )  )
-             {
-               fputs( lline ,    target);
-               //fputs( "<br>\n" , target);
-               fputs( "\n" , target);
-             }
-             else if ( lline[ 0 ] == '>' ) 
-             {
-               fputs( lline ,    target);
-               //fputs( "<br>\n" , target);
-               fputs( "\n" , target);
              }
              else
              {
