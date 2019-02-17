@@ -26,22 +26,6 @@
 #include <time.h>
 
 
-char *strrdc(char *str)
-{  // seems to work, but seg fault sure
-      char ptr[strlen(str)+1];
-      int i,j=0;
-      for( i=0; str[i]!='\0'; i++)
-      {
-         if ( str[i] != '\n' ) 
-          if ( i >= 1 )
-           ptr[j++]=str[i];
-      } 
-      ptr[j]='\0';
-      size_t siz = sizeof ptr ; 
-      char *r = malloc( sizeof ptr );
-      return r ? memcpy(r, ptr, siz ) : NULL;
-}
-
 
 
 char *fbasenoext(char* mystr)
